@@ -2,9 +2,10 @@
 
 /*
     Лабораторна робота 1. Подання знань і бази знань на Пролозі
-    Предметна область: "Тварини" (усі тварини в базі мають назву на літеру "Т")
+    Предметна область: "Тварини"
 
-    Базу знань побудовано на основі експертної системи визначення тварини:
+    Базу знань побудовано на основі експертної системи визначення тварини
+    (тигр, тхір, тюлень, тапір, тарпан, тукан, тетерук, тунець, тарантул, терміт):
     ті самі тварини та ознаки (клас, живлення, середовище, смуги, дзьоб)
     подано тут як онтологію: класи, екземпляри, атрибути та зв'язки.
 */
@@ -13,138 +14,138 @@
 % КЛАСИ
 % =====================================================================
 
-class(тварина).
-class(хордові).
-class(членистоногі).
-class(ссавець).
-class(птах).
-class(риба).
-class(комаха).
-class(павукоподібний).
+class(animal).
+class(chordate).
+class(arthropod).
+class(mammal).
+class(bird).
+class(fish).
+class(insect).
+class(arachnid).
 
-class(середовище).
-class(наземне_середовище).
-class(водне_середовище).
+class(habitat).
+class(terrestrial_habitat).
+class(aquatic_habitat).
 
 % =====================================================================
 % ІЄРАРХІЯ КЛАСІВ (ієрархічні зв'язки, is-a між класами)
 % =====================================================================
 
-subclass(хордові,        тварина).
-subclass(членистоногі,   тварина).
+subclass(chordate,  animal).
+subclass(arthropod, animal).
 
-subclass(ссавець,        хордові).
-subclass(птах,           хордові).
-subclass(риба,           хордові).
+subclass(mammal,    chordate).
+subclass(bird,      chordate).
+subclass(fish,      chordate).
 
-subclass(комаха,         членистоногі).
-subclass(павукоподібний, членистоногі).
+subclass(insect,    arthropod).
+subclass(arachnid,  arthropod).
 
-subclass(наземне_середовище, середовище).
-subclass(водне_середовище,   середовище).
+subclass(terrestrial_habitat, habitat).
+subclass(aquatic_habitat,     habitat).
 
 % =====================================================================
 % ЕКЗЕМПЛЯРИ КЛАСІВ (instance-of)
 % =====================================================================
 
-instance_of(тигр,     ссавець).
-instance_of(тхір,     ссавець).
-instance_of(тюлень,   ссавець).
-instance_of(тапір,    ссавець).
-instance_of(тарпан,   ссавець).
+instance_of(tiger,        mammal).
+instance_of(polecat,      mammal).
+instance_of(seal,         mammal).
+instance_of(tapir,        mammal).
+instance_of(tarpan,       mammal).
 
-instance_of(тукан,    птах).
-instance_of(тетерук,  птах).
+instance_of(toucan,       bird).
+instance_of(black_grouse, bird).
 
-instance_of(тунець,   риба).
-instance_of(тріска,   риба).
+instance_of(tuna,         fish).
+instance_of(cod,          fish).
 
-instance_of(тарантул, павукоподібний).
-instance_of(терміт,   комаха).
+instance_of(tarantula,    arachnid).
+instance_of(termite,      insect).
 
-instance_of(ліс,      наземне_середовище).
-instance_of(степ,     наземне_середовище).
-instance_of(тропіки,  наземне_середовище).
-instance_of(море,     водне_середовище).
+instance_of(forest,       terrestrial_habitat).
+instance_of(steppe,       terrestrial_habitat).
+instance_of(tropics,      terrestrial_habitat).
+instance_of(sea,          aquatic_habitat).
 
 % =====================================================================
 % АТРИБУТИ ЕКЗЕМПЛЯРІВ: has_attribute(Об'єкт, Атрибут, Значення)
 % =====================================================================
 
-has_attribute(тигр,     живлення, хижак).
-has_attribute(тхір,     живлення, хижак).
-has_attribute(тюлень,   живлення, хижак).
-has_attribute(тапір,    живлення, травоїдний).
-has_attribute(тарпан,   живлення, травоїдний).
-has_attribute(тукан,    живлення, всеїдний).
-has_attribute(тетерук,  живлення, травоїдний).
-has_attribute(тунець,   живлення, хижак).
-has_attribute(тріска,   живлення, хижак).
-has_attribute(тарантул, живлення, хижак).
-has_attribute(терміт,   живлення, травоїдний).
+has_attribute(tiger,        diet, carnivore).
+has_attribute(polecat,      diet, carnivore).
+has_attribute(seal,         diet, carnivore).
+has_attribute(tapir,        diet, herbivore).
+has_attribute(tarpan,       diet, herbivore).
+has_attribute(toucan,       diet, omnivore).
+has_attribute(black_grouse, diet, herbivore).
+has_attribute(tuna,         diet, carnivore).
+has_attribute(cod,          diet, carnivore).
+has_attribute(tarantula,    diet, carnivore).
+has_attribute(termite,      diet, herbivore).
 
-has_attribute(тигр,     смуги, так).
-has_attribute(тхір,     смуги, ні).
-has_attribute(тукан,    яскравий_дзьоб, так).
-has_attribute(тетерук,  яскравий_дзьоб, ні).
+has_attribute(tiger,        stripes, yes).
+has_attribute(polecat,      stripes, no).
+has_attribute(toucan,       bright_beak, yes).
+has_attribute(black_grouse, bright_beak, no).
 
-has_attribute(тарпан,   статус, вимерлий).
+has_attribute(tarpan,       status, extinct).
 
 % Виняток з успадкування: тюлень - ссавець, але пересувається плаваючи
-has_attribute(тюлень,   пересування, плавання).
+has_attribute(seal,         locomotion, swimming).
 
 % =====================================================================
 % АТРИБУТИ КЛАСІВ (успадковуються всіма екземплярами та підкласами)
 % =====================================================================
 
-class_attribute(тварина,        статус,         існуючий).
-class_attribute(хордові,        скелет,         внутрішній).
-class_attribute(членистоногі,   скелет,         зовнішній).
-class_attribute(ссавець,        покрив,         хутро).
-class_attribute(ссавець,        пересування,    ходьба).
-class_attribute(птах,           покрив,         оперення).
-class_attribute(птах,           пересування,    політ).
-class_attribute(риба,           покрив,         луска).
-class_attribute(риба,           пересування,    плавання).
-class_attribute(комаха,         кількість_ніг,  6).
-class_attribute(павукоподібний, кількість_ніг,  8).
+class_attribute(animal,    status,     extant).
+class_attribute(chordate,  skeleton,   internal).
+class_attribute(arthropod, skeleton,   external).
+class_attribute(mammal,    body_cover, fur).
+class_attribute(mammal,    locomotion, walking).
+class_attribute(bird,      body_cover, feathers).
+class_attribute(bird,      locomotion, flight).
+class_attribute(fish,      body_cover, scales).
+class_attribute(fish,      locomotion, swimming).
+class_attribute(insect,    legs,       6).
+class_attribute(arachnid,  legs,       8).
 
 % =====================================================================
 % АСОЦІАТИВНІ ЗВ'ЯЗКИ
 % =====================================================================
 
 % lives_in(Тварина, Середовище) - основне середовище існування
-lives_in(тигр,     ліс).
-lives_in(тхір,     ліс).
-lives_in(тетерук,  ліс).
-lives_in(тарпан,   степ).
-lives_in(тапір,    тропіки).
-lives_in(тукан,    тропіки).
-lives_in(тарантул, тропіки).
-lives_in(терміт,   тропіки).
-lives_in(тюлень,   море).
-lives_in(тунець,   море).
-lives_in(тріска,   море).
+lives_in(tiger,        forest).
+lives_in(polecat,      forest).
+lives_in(black_grouse, forest).
+lives_in(tarpan,       steppe).
+lives_in(tapir,        tropics).
+lives_in(toucan,       tropics).
+lives_in(tarantula,    tropics).
+lives_in(termite,      tropics).
+lives_in(seal,         sea).
+lives_in(tuna,         sea).
+lives_in(cod,          sea).
 
 % eats(Хто, Кого) - харчовий зв'язок між тваринами
-eats(тигр,     тапір).
-eats(тхір,     тетерук).
-eats(тюлень,   тріска).
-eats(тунець,   тріска).
-eats(тукан,    тарантул).
-eats(тарантул, терміт).
+eats(tiger,     tapir).
+eats(polecat,   black_grouse).
+eats(seal,      cod).
+eats(tuna,      cod).
+eats(toucan,    tarantula).
+eats(tarantula, termite).
 
 % =====================================================================
 % НЕСУМІСНІ КЛАСИ
 % =====================================================================
 
-disjoint(хордові, членистоногі).
-disjoint(ссавець, птах).
-disjoint(ссавець, риба).
-disjoint(птах,    риба).
-disjoint(комаха,  павукоподібний).
-disjoint(тварина, середовище).
-disjoint(наземне_середовище, водне_середовище).
+disjoint(chordate, arthropod).
+disjoint(mammal,   bird).
+disjoint(mammal,   fish).
+disjoint(bird,     fish).
+disjoint(insect,   arachnid).
+disjoint(animal,   habitat).
+disjoint(terrestrial_habitat, aquatic_habitat).
 
 % =====================================================================
 % ПРАВИЛА
@@ -195,11 +196,11 @@ class_value(Class, Attr, Value) :-
 animal_class(Animal, Class) :-
     is_a(Animal, Class),
     subclass(Class, Type),
-    subclass(Type, тварина).
+    subclass(Type, animal).
 
 predator(Animal) :-
-    is_a(Animal, тварина),
-    has_attribute(Animal, живлення, хижак).
+    is_a(Animal, animal),
+    has_attribute(Animal, diet, carnivore).
 
 % Харчовий ланцюг: Animal прямо або опосередковано живиться Prey.
 % Рекурсія з пам'яттю відвіданих вершин (захист від циклів у eats/2).
@@ -232,13 +233,13 @@ competitors(A, B, Prey) :-
 
 aquatic_animal(Animal) :-
     lives_in(Animal, Habitat),
-    is_a(Habitat, водне_середовище).
+    is_a(Habitat, aquatic_habitat).
 
 % Пошук тварини за ознаками - декларативний аналог identify/1
 % з експертної системи (без діалогу з користувачем)
 candidate(Animal, Class, Diet, Habitat) :-
     animal_class(Animal, Class),
-    has_attribute(Animal, живлення, Diet),
+    has_attribute(Animal, diet, Diet),
     lives_in(Animal, Habitat).
 
 % =====================================================================
@@ -271,26 +272,26 @@ hierarchy_cycle(Class) :-
 % 4. Неправильні типи аргументів відношень
 invalid_relation(eats(A, B)) :-
     eats(A, B),
-    ( \+ is_a(A, тварина) ; \+ is_a(B, тварина) ).
+    ( \+ is_a(A, animal) ; \+ is_a(B, animal) ).
 invalid_relation(lives_in(A, H)) :-
     lives_in(A, H),
-    ( \+ is_a(A, тварина) ; \+ is_a(H, середовище) ).
+    ( \+ is_a(A, animal) ; \+ is_a(H, habitat) ).
 
 % 5. Травоїдна тварина в базі поїдає іншу тварину
 diet_contradiction(Animal, Prey) :-
     eats(Animal, Prey),
-    has_attribute(Animal, живлення, травоїдний).
+    has_attribute(Animal, diet, herbivore).
 
 % 6. Цикл у харчовому ланцюгу (A прямо чи опосередковано їсть сама себе)
 food_cycle(Animal) :-
-    is_a(Animal, тварина),
+    is_a(Animal, animal),
     food_chain(Animal, Animal).
 
 % 7. Риба записана як мешканець наземного середовища
 habitat_mismatch(Animal, Habitat) :-
     lives_in(Animal, Habitat),
-    is_a(Animal, риба),
-    is_a(Habitat, наземне_середовище).
+    is_a(Animal, fish),
+    is_a(Habitat, terrestrial_habitat).
 
 model_issue(conflicting_types(O, C1, C2)) :- conflicting_types(O, C1, C2).
 model_issue(unknown_class(A, B))          :- unknown_class(A, B).
@@ -304,16 +305,19 @@ model_issue(habitat_mismatch(A, H))       :- habitat_mismatch(A, H).
 % ПРИКЛАДИ ЗАПИТІВ
 % =====================================================================
 
-% ?- is_a(тигр, хордові).
-% ?- is_a(терміт, тварина).
-% ?- setof(A, is_a(A, ссавець), L).
-% ?- value(тигр, покрив, V).
-% ?- value(тюлень, пересування, V).
-% ?- value(тарпан, статус, V).
-% ?- value(тарантул, кількість_ніг, N).
-% ?- setof(P, food_chain(тукан, P), L).
+% ?- is_a(tiger, chordate).
+% ?- is_a(termite, animal).
+% ?- setof(A, is_a(A, mammal), L).
+% ?- value(tiger, body_cover, V).
+% ?- value(seal, locomotion, V).
+% ?- value(tarpan, status, V).
+% ?- value(tapir, status, V).
+% ?- value(tarantula, legs, N).
+% ?- value(tarantula, skeleton, S).
+% ?- setof(P, food_chain(toucan, P), L).
 % ?- top_predator(A).
 % ?- competitors(A, B, Prey).
-% ?- neighbours(тигр, B, H).
-% ?- candidate(A, ссавець, хижак, ліс), has_attribute(A, смуги, так).
+% ?- neighbours(A, B, forest).
+% ?- aquatic_animal(A).
+% ?- candidate(A, mammal, carnivore, forest), has_attribute(A, stripes, yes).
 % ?- model_issue(Issue).
